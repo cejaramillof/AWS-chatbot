@@ -1,0 +1,38 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "*"
+      },
+      "Action": [
+        "es:ESHttpGet",
+        "es:ESHttpHead"
+      ],
+      "Resource": "arn:aws:es:us-east-1:398526762519:domain/chatbot/*"
+    },
+    {
+      "Sid": "",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "*"
+      },
+      "Action": "es:ESHttpP*",
+      "Resource": [
+        "arn:aws:es:us-east-1:398526762519:domain/chatbot/.kibana-4*",
+        "arn:aws:es:us-east-1:398526762519:domain/chatbot/messages/_msearch*",
+        "arn:aws:es:us-east-1:398526762519:domain/chatbot/messages/_search*"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::398526762519:root"
+      },
+      "Action": "es:*",
+      "Resource": "arn:aws:es:us-east-1:398526762519:domain/chatbot/*"
+    }
+  ]
+}

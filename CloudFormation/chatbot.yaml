@@ -1,5 +1,27 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
+Description: Deploy components Serverless Customer Service Bot
+
+Parameters: 
+  pFACEBOOK_PAGE_ID: 
+    Description: Facebook page id
+    Type: String
+  pFACEBOOK_ACCESS_TOKEN: 
+    Description: Facebook page access token
+    Type: String
+  pSLACK_CHANNEL_ID: 
+    Description: Slack channel
+    Type: String
+  pSLACK_CLIENT_ID: 
+    Description: Slack client ID
+    Type: String
+  pSLACK_CLIENT_SECRET: 
+    Description: Slack Client secret
+    Type: String
+  pES_ENDPOINT: 
+    Description: Elastic Service Endpoint
+    Type: String
+
 Resources:
 
 #
@@ -18,8 +40,8 @@ Resources:
         - AmazonDynamoDBFullAccess
       Environment:
         Variables:
-          FACEBOOK_PAGE_ID: '123456789'
-          FACEBOOK_ACCESS_TOKEN: '1q2w3e4r5t6y7u8i9'
+          FACEBOOK_PAGE_ID: !Ref pFACEBOOK_PAGE_ID
+          FACEBOOK_ACCESS_TOKEN: !Ref pFACEBOOK_ACCESS_TOKEN
       Events:
         GetResource:
           Type: Api
@@ -44,10 +66,10 @@ Resources:
         - AmazonDynamoDBFullAccess
       Environment:
         Variables:
-          FACEBOOK_PAGE_ID: '123456789'
-          SLACK_CHANNEL_ID: 'C1Q2W3E4R'
-          SLACK_CLIENT_ID: '123456789'
-          SLACK_CLIENT_SECRET: '123456789'
+          FACEBOOK_PAGE_ID: !Ref pFACEBOOK_PAGE_ID
+          SLACK_CHANNEL_ID: !Ref pSLACK_CHANNEL_ID
+          SLACK_CLIENT_ID: !Ref pSLACK_CLIENT_ID
+          SLACK_CLIENT_SECRET: !Ref pSLACK_CLIENT_SECRET
       Events:
         GetResource:
           Type: Api
@@ -69,9 +91,9 @@ Resources:
         - AWSLambdaFullAccess
       Environment:
         Variables:
-          FACEBOOK_PAGE_ID: '123456789'
-          FACEBOOK_ACCESS_TOKEN: '1q2w3e4r5t6y7u8i9'
-          ES_ENDPOINT : 'https://your-endpoint/'
+          FACEBOOK_PAGE_ID: !Ref pFACEBOOK_PAGE_ID
+          FACEBOOK_ACCESS_TOKEN: !Ref pFACEBOOK_ACCESS_TOKEN
+          ES_ENDPOINT : !Ref pES_ENDPOINT
           LAMBDA_SENTIMENT_ANALYSIS: !Ref SentimentAnalysis
           LAMBDA_NLP: !Ref NLP
           LAMBDA_SLACK: !Ref SlackApp
@@ -106,7 +128,7 @@ Resources:
         - AmazonESFullAccess
       Environment:
         Variables:
-          ES_ENDPOINT : 'https://your-endpoint/'
+          ES_ENDPOINT : !Ref pES_ENDPOINT
 
 #
 # DynamoDB Tables

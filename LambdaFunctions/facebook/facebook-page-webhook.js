@@ -35,7 +35,7 @@ var processEvents = function(event, context) {
 
 var authenticateFacebookWebhook = function(event, context) {
     // return the hub.challenge to Facebook to register the webhook to Facebook
-    if (event.queryStringParameters['hub.mode'] == 'subscribe' && event.queryStringParameters['hub.verify_token'] == 'reinvent-workshop') {
+    if (event.queryStringParameters['hub.mode'] == 'subscribe' && event.queryStringParameters['hub.verify_token'] == 'awsome-chatbot') {
         console.log("Facebook Webhook authentication done");
         context.done(null, {
             statusCode: 200,
